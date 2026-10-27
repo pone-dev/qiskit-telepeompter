@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CampusFlow Hackathon Presentation</title>
+    <style>
+      :root {
+        --bg1: #061826;
+        --bg2: #0b1d2f;
+        --panel: rgba(12, 28, 40, 0.92);
+        --panel-2: rgba(19, 39, 56, 0.9);
+        --ink: #ecf7ff;
+        --muted: #a9c8dc;
+        --primary: #6dd3ff;
+        --secondary: #7ef0b8;
+        --gold: #ffc857;
+        --danger: #ff7a7a;
+        --line: rgba(255,255,255,0.12);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: linear-gradient(135deg, var(--bg1), var(--bg2) 60%, #112b40);
+        color: var(--ink);
+      }
+
+      .deck {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        padding: 28px;
+      }
+
+      .slide {
+        position: relative;
+        width: 100%;
+        min-height: 720px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        box-shadow: 0 20px 70px rgba(0,0,0,0.28);
+        padding: 36px 46px 28px;
+        overflow: hidden;
+      }
+
+      .slide::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 0 0;
+        background: linear-gradient(90deg, var(--primary), transparent 18%);
+        opacity: 0.12;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 16px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+      }
+
+      .brand-mark {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        background: linear-gradient(135deg, var(--primary), #5f83ff);
+        color: #041827;
+        font-weight: 900;
+      }
+
+      h1, h2, h3, p, ul, ol { margin-top: 0; position: relative; z-index: 1; }
+
+      h1 {
+        font-size: 52px;
+        line-height: 1.1;
+        margin-bottom: 18px;
+        letter-spacing: -0.04em;
+      }
+
+      h2 {
+        font-size: 34px;
+        line-height: 1.2;
+        margin-bottom: 18px;
+        letter-spacing: -0.03em;
+      }
+
+      h3 {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      .eyebrow {
+        color: var(--primary);
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: 14px;
+        position: relative;
+        z-index: 1;
+      }
+
+      p, li {
+        font-size: 19px;
+        line-height: 1.5;
+        color: var(--ink);
+      }
+
+      .muted { color: var(--muted); }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 26px;
+        align-items: end;
+        margin-top: 12px;
+      }
+
+      .highlight-box {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 22px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .tag {
+        display: inline-block;
+        padding: 7px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(109,211,255,0.25);
+        background: rgba(109,211,255,0.08);
+        color: var(--primary);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 20px;
+        margin-top: 26px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .stat {
+        background: linear-gradient(180deg, rgba(109,211,255,0.08), rgba(255,255,255,0.02));
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 18px 14px;
+      }
+
+      .stat .label {
+        display: block;
+        color: var(--muted);
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 30px;
+        margin-bottom: 4px;
+        letter-spacing: -0.04em;
+      }
+
+      .stat small {
+        color: var(--secondary);
+        font-size: 12px;
+      }
+
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 22px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .card {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 18px 18px 16px;
+      }
+
+      .card ul,
+      .card ol {
+        padding-left: 18px;
+        margin-bottom: 0;
+      }
+
+      .workflow {
+        display: grid;
+        gap: 12px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .step {
+        display: grid;
+        grid-template-columns: 32px 1fr;
+        gap: 14px;
+        align-items: start;
+        background: rgba(255,255,255,0.025);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 12px;
+      }
+
+      .step-no {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--secondary);
+        color: #03222d;
+        font-weight: 900;
+      }
+
+      .role-row {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .role-card {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 18px;
+      }
+
+      .role-card .pill {
+        display: inline-block;
+        border-radius: 999px;
+        background: rgba(126,240,184,0.12);
+        border: 1px solid rgba(126,240,184,0.3);
+        color: var(--secondary);
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 6px 10px;
+        margin-bottom: 10px;
+      }
+
+      .role-card .demo {
+        color: var(--muted);
+        font-size: 13px;
+        margin-bottom: 8px;
+      }
+
+      .stack-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 16px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(255,200,87,0.12);
+        border: 1px solid rgba(255,200,87,0.25);
+        color: #ffdd9a;
+        font-size: 13px;
+      }
+
+      .impact {
+        color: var(--secondary);
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+      }
+
+      .footer {
+        position: absolute;
+        right: 40px;
+        bottom: 20px;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: var(--muted);
+        z-index: 1;
+      }
+
+      @media (max-width: 980px) {
+        .hero, .two-col, .role-row, .grid-3, .stats { grid-template-columns: 1fr; }
+        .slide { min-height: auto; }
+        h1 { font-size: 40px; }
+        h2 { font-size: 28px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="deck">
+      <section class="slide">
+        <div class="topbar">
+          <div class="brand"><span class="brand-mark">C</span> CampusFlow</div>
+          <div>Hackathon pitch</div>
+        </div>
+
+        <div class="eyebrow">One campus. One operations radar.</div>
+        <div class="hero">
+          <div>
+            <h1>CampusFlow</h1>
+            <p>We built a role-aware university operations dashboard that helps students, faculty, and administrators act on real campus problems before they escalate.</p>
+            <div class="tag">Built for smarter campus operations</div>
+          </div>
+          <div class="highlight-box">
+            <p class="muted" style="margin-bottom: 12px;">What it does</p>
+            <p><strong>Unifies: </strong>timetables, attendance, facilities, finance, student requests, and anonymous complaints in one interface.</p>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <span class="label">Roles</span>
+            <strong>3</strong>
+            <small>Student • Staff • Admin</small>
+          </div>
+          <div class="stat">
+            <span class="label">Workflows</span>
+            <strong>5+</strong>
+            <small>Live demo actions</small>
+          </div>
+          <div class="stat">
+            <span class="label">Signals</span>
+            <strong>Live</strong>
+            <small>Priority updates</small>
+          </div>
+          <div class="stat">
+            <span class="label">Impact</span>
+            <strong>Faster</strong>
+            <small>Decision-making</small>
+          </div>
+        </div>
+
+        <div class="footer">Slide 1</div>
+      </section>
+
+      <section class="slide">
+        <div class="topbar">
+          <div class="brand"><span class="brand-mark">C</span> CampusFlow</div>
+          <div>Problem</div>
+        </div>
+
+        <div class="eyebrow">Campus operations are fragmented</div>
+        <h2>Universities lose time when academic, facilities, finance, and support work are disconnected.</h2>
+
+        <div class="two-col">
+          <div class="card">
+            <p><strong>Common pain points</strong></p>
+            <ul>
+              <li>Scheduling conflicts disrupt classes and student planning.</li>
+              <li>Maintenance issues remain unresolved too long.</li>
+              <li>Attendance and finance data are tracked in separate silos.</li>
+              <li>Students raise support issues without a clear channel.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <p><strong>Result</strong></p>
+            <ul>
+              <li>Slow decisions</li>
+              <li>Confusion across departments</li>
+              <li>Wasted time and campus inefficiency</li>
+              <li>Poor student experience</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer">Slide 2</div>
+      </section>
+
+      <section class="slide">
+        <div class="topbar">
+          <div class="brand"><span class="brand-mark">C</span> CampusFlow</div>
+          <div>Solution</div>
+        </div>
+
+        <div class="eyebrow">A single operating layer</div>
+        <h2>CampusFlow gives every stakeholder a contextual view of the campus in one place.</h2>
+
+        <div class="grid-3">
+          <div class="card">
+            <h3>Academic visibility</h3>
+            <p>Track timetable health, class attendance, and academic risk indicators in one dashboard.</p>
+          </div>
+          <div class="card">
+            <h3>Facility coordination</h3>
+            <p>Resolve room clashes and maintenance issues with operational updates published instantly.</p>
+          </div>
+          <div class="card">
+            <h3>Student support</h3>
+            <p>Provide a private complaint channel and a clear status tracking flow without exposing identities.</p>
+          </div>
+        </div>
+
+        <div class="footer">Slide 3</div>
+      </section>
+
+      <section class="slide">
+        <div class="topbar">
+          <div class="brand"><span class="brand-mark">C</span> CampusFlow</div>
+          <div>Demo workflow</div>
+        </div>
+
+        <div class="eyebrow">Live use cases</div>
+        <h2>We demonstrated real campus decision flows in the app.</h2>
+
+        <div class="workflow">
+          <div class="step">
+            <span class="step-no">1</span>
+            <div>
+              <h3>Resolve a timetable conflict</h3>
+              <p>Move a class to an alternate room and notify the affected students automatically.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-no">2</span>
+            <div>
+              <h3>Advance a facility ticket</h3>
+              <p>Update the maintenance status of a classroom issue in real time.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-no">3</span>
+            <div>
+              <h3>Review attendance and fees</h3>
+              <p>Track class attendance, mark invoices as paid, and maintain student visibility.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-no">4</span>
+            <div>
+              <h3>Submit anonymous complaint</h3>
+              <p>Students raise concerns privately while reviewers act on case status without exposure risk.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer">Slide 4</div>
+      </section>
+
+      <section class="slide">
+        <div class="topbar">
+          <div class="brand"><span class="brand-mark">C</span> CampusFlow</div>
+          <div>Users</div>
+        </div>
+
+        <div class="eyebrow">Built for three key roles</div>
+        <h2>Different users get tailored views, permissions, and actions.</h2>
+
+        <div class="role-row">
+          <div class="role-card">
+            <span class="pill">Admin</span>
+            <h3>Administrator</h3>
+            <div class="demo">admin@campusflow.demo</div>
+            <p>Monitors operations, resolves campus conflicts, and reviews escalations.</p>
+          </div>
+          <div class="role-card">
+            <span class="pill">Staff</span>
+            <h3>Faculty & staff</h3>
+            <div class="demo">staff@campusflow.demo</div>
+            <p>Handles class records, maintenance issues, and support requests efficiently.</p>
+          </div>
+          <div class="role-card">
+            <span class="pill">Student</span>
+            <h3>Student</h3>
+            <div class="demo">student@campusflow.demo</div>
+            <p>Views attendance, finance, notices, requests, and confidential support flows.</p>
+          </div>
+        </div>
+
+        <div class="footer">Slide 5</div>
+      </section>
+
+      <section class="slide">
+        <div class="topbar">
+          <div class="brand"><span class="brand-mark">C</span> CampusFlow</div>
+          <div>Tech</div>
+        </div>
+
+        <div class="eyebrow">Technology stack</div>
+        <h2>Fast, modern, and easy to extend.</h2>
+
+        <div class="two-col">
+          <div class="card">
+            <p><strong>Core stack</strong></p>
+            <ul>
+              <li>React + TypeScript for a scalable UI</li>
+              <li>Vite for quick development and build flow</li>
+              <li>Role-aware demo data and action simulation</li>
+              <li>Supabase-ready architecture for future backend integration</li>
+            </ul>
+          </div>
+          <div class="card">
+            <p><strong>Why it stands out</strong></p>
+            <ul>
+              <li>Single dashboard for operational decisions</li>
+              <li>Clear use cases for students, staff, and admin</li>
+              <li>Designed to scale from demo to real campus system</li>
+              <li>Strong UX for hackathon presentations</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="stack-list">
+          <span class="chip">React</span>
+          <span class="chip">TypeScript</span>
+          <span class="chip">Vite</span>
+          <span class="chip">Supabase</span>
+          <span class="chip">Responsive UI</span>
+        </div>
+
+        <div class="footer">Slide 6</div>
+      </section>
+
+      <section class="slide">
+        <div class="topbar">
+          <div class="brand"><span class="brand-mark">C</span> CampusFlow</div>
+          <div>Impact</div>
+        </div>
+
+        <div class="eyebrow">Why this matters</div>
+        <h2>We turn campus chaos into coordinated action.</h2>
+
+        <div class="two-col">
+          <div class="card">
+            <p class="muted">Business value</p>
+            <ul>
+              <li>Improves response time to operational issues</li>
+              <li>Reduces communication gaps between departments</li>
+              <li>Enhances student trust and transparency</li>
+              <li>Builds a stronger campus service experience</li>
+            </ul>
+          </div>
+          <div class="card">
+            <p class="muted">Hackathon angle</p>
+            <ul>
+              <li>Real-world problem</li>
+              <li>Clear user personas</li>
+              <li>Strong product narrative</li>
+              <li>Demoable and visually compelling</li>
+            </ul>
+          </div>
+        </div>
+
+        <p style="margin-top: 22px;"><span class="impact">CampusFlow</span> is a practical, scalable concept for modern university operations — built to solve problems that every campus faces.</p>
+
+        <div class="footer">Slide 7</div>
+      </section>
+
+      <section class="slide">
+        <div class="topbar">
+          <div class="brand"><span class="brand-mark">C</span> CampusFlow</div>
+          <div>Closing</div>
+        </div>
+
+        <div class="eyebrow">Thank You</div>
+        <h1 style="font-size: 52px; text-align: center; margin-top: 80px; margin-bottom: 18px;">Code Rangers</h1>
+        <p style="text-align: center; font-size: 22px; color: var(--muted);">Thank you for your time and support.</p>
+
+        <div style="margin-top: 60px; text-align: center; position: relative; z-index: 1;">
+          <div class="tag">CampusFlow</div>
+          <p style="font-size: 18px; color: var(--ink); margin: 0;">Building smarter campus operations for a better student experience.</p>
+        </div>
+
+        <div class="footer">Slide 8</div>
+      </section>
+    </div>
+  </body>
+</html>

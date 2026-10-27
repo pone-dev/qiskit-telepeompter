@@ -1,0 +1,38 @@
+{
+  "name": "campusflow-university-management",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "packageManager": "pnpm@8.15.9",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n API,WEB \"node server/index.js\" \"vite --host 0.0.0.0\"",
+    "build": "tsc && vite build",
+    "start": "node server/index.js",
+    "preview": "node server/index.js",
+    "db:migrate": "node server/migrate.js",
+    "bootstrap:admin": "node server/bootstrap-admin.js",
+    "reset:admin": "node server/reset-admin.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^7.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.14.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^4.5.9"
+  }
+}

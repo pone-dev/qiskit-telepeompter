@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: campusflow-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "10000"
+      - key: APP_ORIGIN
+        sync: false
+      - key: MYSQL_HOST
+        sync: false
+      - key: MYSQL_PORT
+        value: "3306"
+      - key: MYSQL_USER
+        sync: false
+      - key: MYSQL_PASSWORD
+        sync: false
+      - key: MYSQL_DATABASE
+        sync: false
+      - key: MYSQL_SSL
+        value: "true"
+      - key: MYSQL_SSL_CA
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: USER_PROVISIONING_TOKEN
+        sync: false
